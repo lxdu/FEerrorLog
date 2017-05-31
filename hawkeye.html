@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hawkeye error</title>
+</head>
+
+<body>
+
+    <ol id="list"></ol>
+    <script>
+        var list = document.getElementById("list");
+        var errorKeys = localStorage.getItem("hawkeyeErrorKeys") ? JSON.parse(localStorage.getItem("hawkeyeErrorKeys")) : [];
+        console.log(errorKeys)
+        for (var i = 0; i < errorKeys.length; i++) {
+            console.log(i)
+            var li = document.createElement("li");
+            li.innerText = localStorage.getItem(errorKeys[i]);
+            list.appendChild(li);
+        }
+    </script>
+</body>
+
+</html>
