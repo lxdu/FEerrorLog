@@ -14,15 +14,34 @@
     <div id="box">测试代码</div>
     <img class="aa" src="./1.jpg" alt="示例图片">
     <script>
-        console.log(a)
-        // throw "A ERROR"
-        // throw new Error("A ERROR")
-        // var oBox = document.getElementById("box");
-        // oBox.onclick = function() {
-            // console.log(a) 
-        //     return false
-        //     console.info(123)
-        // }
+        //第一组错误
+        console.log(a) //Uncaught ReferenceError: a is not defined
+        console.log(a.b) //Uncaught ReferenceError: a is not defined
+        console.log(a()) //Uncaught ReferenceError: a is not defined
+        console.log(window.a);//不会报错，打印undefined
+
+        //第二组错误
+        let a = {
+            c: 1
+        }
+        console.log(a());//Uncaught TypeError: a is not a function
+        console.log(a.b); //不会报错，打印undefined
+        console.log(a.b());//Uncaught TypeError: a.b is not a function
+        console.log(a.b.c);//Uncaught TypeError: Cannot read property 'c' of undefined
+        console.log(a.b.c());//Uncaught TypeError: Cannot read property 'c' of undefined
+
+        //第三组错误：throw出来的异常
+        throw "A ERROR";//Uncaught A ERROR
+        throw new Error("A ERROR");//Uncaught Error: A ERROR
+
+        //第四组错误:错误的类型调用方法导致的异常
+        console.log(undefined.replace("a","b"))//Uncaught TypeError: Cannot read property 'replace' of undefined
+        console.log(null.replace("a","b"))//Uncaught TypeError: Cannot read property 'replace' of null
+        console.warn(123.replace("a","b"))//Uncaught SyntaxError: Invalid or unexpected token
+        console.warn([].replace("a","b"))//Uncaught TypeError: [].replace is not a function
+        console.warn(true.replace("a","b"))//Uncaught TypeError: true.replace is not a function
+        console.log(new Array("1").replace("a","b"))//Uncaught TypeError: (intermediate value).replace is not a function
+        //对象类型的调用replace方法基本都会报这个错误，报错new出来了、function、{}等方式，但是new String()创建出的不会报这个错，[]也不会报这个错
     </script>
 </body>
 
